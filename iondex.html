@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Form</title>
+       <style>
+       
+         :root{
+  --bg:#f6f8fb;
+  --card:#ffffff;
+  --accent:#2563eb;
+  --muted:#6b7280;
+  --border:#e6e9ef;
+  --radius:10px;
+  --gap:16px;
+  --max-width:820px;
+  --shadow: 0 6px 18px rgba(20,24,40,0.06);
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:var(--font-sans);
+  background:linear-gradient(180deg,var(--bg),#eef3fb);
+  color:#111827;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  padding:32px;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  gap:24px;
+}
+
+/* Form container */
+form{
+  width:100%;
+  max-width:var(--max-width);
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:24px;
+  box-shadow:var(--shadow);
+  border:1px solid var(--border);
+}
+
+/* Fieldset and headings */
+fieldset{
+  border:0;
+  padding:0;
+  margin:0;
+}
+form > fieldset > span:first-of-type{
+  display:block;
+  font-weight:700;
+  color:#0f172a;
+  margin-bottom:12px;
+  font-size:14px;
+  letter-spacing:0.4px;
+}
+
+/* Form grid for personal info */
+.personal-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:var(--gap);
+  margin-bottom:18px;
+}
+@media (max-width:640px){
+  .personal-grid{grid-template-columns:1fr}
+}
+
+/* Labels and inputs */
+label{
+  display:block;
+  font-size:13px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+select,
+textarea{
+  width:100%;
+  padding:10px 12px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  background:#fff;
+  font-size:14px;
+  color:#0f172a;
+  transition:box-shadow .15s, border-color .15s;
+  outline:none;
+}
+input::placeholder, textarea::placeholder{color:#9ca3af}
+
+/* Focus states */
+input:focus, select:focus, textarea:focus{
+  border-color:var(--accent);
+  box-shadow:0 4px 12px rgba(37,99,235,0.12);
+}
+
+/* Section headings */
+h1,h2{
+  margin:18px 0 8px 0;
+  font-size:16px;
+  color:#0f172a;
+}
+h1{font-size:18px}
+
+/* Select styling */
+select{
+  appearance:none;
+  background-image:linear-gradient(45deg, transparent 50%, var(--muted) 50%),
+                    linear-gradient(135deg, var(--muted) 50%, transparent 50%);
+  background-position:calc(100% - 18px) calc(1em + 2px), calc(100% - 13px) calc(1em + 2px);
+  background-size:6px 6px,6px 6px;
+  background-repeat:no-repeat;
+  padding-right:40px;
+}
+
+/* Checkbox and radio rows */
+.checkbox-row, .radio-row{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  margin-bottom:12px;
+}
+.checkbox-row label, .radio-row label{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  cursor:pointer;
+  color:#111827;
+  font-size:14px;
+}
+input[type="checkbox"], input[type="radio"]{
+  width:18px;
+  height:18px;
+  accent-color:var(--accent);
+}
+
+/* Textarea */
+textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+/* Buttons */
+.form-actions{
+  display:flex;
+  gap:12px;
+  margin-top:18px;
+  flex-wrap:wrap;
+}
+button, input[type="submit"], input[type="reset"]{
+  cursor:pointer;
+  border:0;
+  padding:10px 16px;
+  border-radius:8px;
+  font-weight:600;
+  font-size:14px;
+}
+input[type="submit"]{
+  background:var(--accent);
+  color:#fff;
+  box-shadow:0 6px 14px rgba(37,99,235,0.18);
+}
+input[type="reset"]{
+  background:#fff;
+  color:var(--muted);
+  border:1px solid var(--border);
+}
+
+/* Small helper text and relocation block */
+.helper{
+  font-size:13px;
+  color:var(--muted);
+  margin-top:6px;
+}
+
+/* Compact form footer */
+.form-footer{
+  margin-top:18px;
+  font-size:13px;
+  color:var(--muted);
+}
+
+/* Minor utilities */
+.mb-8{margin-bottom:8px}
+.mt-8{margin-top:8px}
+       </style>
+
+</head>
+<body>
+<form>
+<fieldset>
+<span>PERSONAL INFORMATION</span>
+<label for ="fname">First Name:</label>
+    <input type ="text"id="fname"name="fname"placeholder="Nyenyedzi"><br>
+        <label for ="lname">Last Name:</label>
+            <input type ="text"id="lname"name="lname"placeholder="huba"><br>
+                <label for ="email">Email:</label>
+                    <input type ="email" id="email" name="email" placeholder="huba@gmail.com"><br>
+                        <label for ="phone">Phone Number:</label>
+                            <input type ="tel"id="phone"name="phone"placeholder="+267 71234567"><br>
+                                <label for ="address">Physical Address</label>
+                                    <input type ="text"id ="address"name="address"placeholder="Gaborone Botswana plot 1234"><br>
+
+
+<h1>Employement Type</h1>
+<select>
+    <option value="Part-time contract">Part-time contract</option><br>
+        <option value="Part-time permanent">Part-time permanent</option><br>    
+            <option value="Full-time contract">Full-time contract</option><br>
+                <option value="Full-time permanent">Full-time permanent</option><br>
+</select>
+
+<h2>Area(s) of interest</h2>
+<label for="Account">Account Executive</label>
+    <input type ="checkbox"id ="Account"name="Account"value="Account executive"><br>
+        <label for="Business Development">Business Development</label>
+            <input type ="checkbox"id ="Business Development"name="Business Development"value="Business Development"><br>
+                <label for="inside sales">Inside sales</label>
+                <input type ="checkbox"id ="inside sales"name="inside sales"value="inside sales"><br>
+                    <label for ="sales manager">Sales Manager</label>
+                        <input type ="checkbox"id="sales manager"name="sales manager"value="sales manager"><br>
+                            <label for="vp sales">VP Sales</label>
+                                <input type ="checkbox"id="vp sales"name="vp sales"value="vp sales"><br>
+
+            <span>Relocation</span><br>
+<label for="relocate">Do you agree to relocate if required?</label>
+<input type="radio" name="relocate" id="relocate-yes" value="yes">
+<label for="relocate-yes">YES</label>
+<input type="radio" name="relocate" id="relocate-no" value="no">
+<label for="relocate-no">NO</label>
+
+
+<span>Why are you suitable for the role?</span><br>
+    <textarea name ="why you are suitable for the role"rows=10 cols=20 ></textarea><br>
+
+<input type="submit"value="submit"><br>
+    <input type="reset"value="reset"><br>
+
+
+
+
+
+
+
+
+
+
+</fieldset>
+
+</form>
+</body>
+</html>
