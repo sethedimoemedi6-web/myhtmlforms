@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Job Application Form</title>
+<script  src = "script.js"></script> 
        <style>
        
          :root{
@@ -192,10 +195,13 @@ input[type="reset"]{
 .mb-8{margin-bottom:8px}
 .mt-8{margin-top:8px}
        </style>
-
+ 
 </head>
 <body>
-<form>
+  <div id="error messages"></div>
+<form action="/"method="GET">
+  
+
 <fieldset>
 <span>PERSONAL INFORMATION</span>
 <label for ="fname">First Name:</label>
@@ -242,19 +248,135 @@ input[type="reset"]{
     <textarea name ="why you are suitable for the role"rows=10 cols=20 ></textarea><br>
 
 <input type="submit"value="submit"><br>
-    <input type="reset"value="reset"><br>
+ <input type="submit"value="reset"><br>
+ </fieldset>
+ </form>
+    <script>
 
+(function () {
+  
+  function getField(id, name) {
+    return document.getElementById(id) || document.querySelector(`[name="${name}"]`);
+  }
 
+  
+  const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const useBwPhoneCheck = true;
+  const bwPhoneRe = /^(?:\+267\s?)?(?:7\d{7})$/;
 
+  function buildErrors() {
+    const firstName = getField('fname', 'fname');
+    const lastName  = getField('lname', 'lname');
+    const email     = getField('email', 'email');
+    const phone     = getField('phone', 'phone');
+    const address   = getField('address', 'address');
 
+    const missingIds = [];
+    if (!firstName) missingIds.push('fname');
+    if (!lastName)  missingIds.push('lname');
+    if (!email)     missingIds.push('email');
+    if (!phone)     missingIds.push('phone');
+    if (!address)   missingIds.push('address');
 
+    if (missingIds.length) {
+      return {
+        errors: [`ERROR: Missing inputs with ids (or names): ${missingIds.join(', ')}`],
+        firstInvalidEl: null
+      };
+    }
 
+    const errors = [];
+    let firstInvalidEl = null;
 
+    function requireValue(el, label) {
+      if (!el.value || el.value.trim() === '') {
+        errors.push(`${label} is required.`);
+        if (!firstInvalidEl) firstInvalidEl = el;
+      }
+    }
 
+    requireValue(firstName, 'First name');
+    requireValue(lastName,  'Last name');
+    requireValue(email,     'Email');
+    requireValue(phone,     'Phone number');
+    requireValue(address,   'Physical address');
 
+    if (email.value && !emailRe.test(email.value.trim())) {
+      errors.push('Please enter a valid email address.');
+      if (!firstInvalidEl) firstInvalidEl = email;
+    }
 
-</fieldset>
+    if (useBwPhoneCheck && phone.value) {
+      const digits = phone.value.replace(/\s+/g, '');
+      if (!bwPhoneRe.test(digits)) {
+        errors.push('Please enter a valid Botswana mobile number (e.g., +267 7xxxxxxx).');
+        if (!firstInvalidEl) firstInvalidEl = phone;
+      }
+    }
 
-</form>
+    return { errors, firstInvalidEl };
+  }
+
+  function showErrors(errors, firstInvalidEl) {
+    const msg = errors.map(e => `• ${e}`).join('\n');
+    // Alert (immediate feedback)
+    alert(msg);
+
+    // Optional in-page error box if present
+    const box = document.getElementById('error-messages');
+    if (box) {
+      box.textContent = msg;
+      box.style.display = 'block';
+    }
+
+    // Focus the first invalid field
+    if (firstInvalidEl && typeof firstInvalidEl.focus === 'function') {
+      firstInvalidEl.focus();
+    }
+  }
+
+  function clearErrorBox() {
+    const box = document.getElementById('error-messages');
+    if (box) {
+      box.textContent = '';
+      box.style.display = 'none';
+    }
+  }
+
+  // Attach once DOM is ready
+  function init() {
+    const form = document.querySelector('form'); // first (or only) form
+    if (!form) {
+      console.error('No <form> found on the page.');
+      return;
+    }
+
+    // Intercept submit
+    form.addEventListener('submit', function (e) {
+      const { errors, firstInvalidEl } = buildErrors();
+      if (errors.length > 0) {
+        e.preventDefault();
+        showErrors(errors, firstInvalidEl);
+      } else {
+        clearErrorBox();
+        // allow submit
+      }
+    });
+
+    // Clear error box on reset
+    form.addEventListener('reset', function () {
+      // slight delay to allow native reset to run
+      setTimeout(clearErrorBox, 0);
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+</script>
 </body>
 </html>
+
